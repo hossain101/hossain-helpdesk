@@ -1,14 +1,14 @@
-import { MongoClient } from "mongodb";
-import { notFound } from "next/navigation";
+
 import {NextResponse} from "next/server";
 
 import connectToDB from "@/database";
 
 import Ticket from "@/models/schema"
+import Link from "next/link";
 
 
 
- const getData = async(req)=>{
+ const getTickets = async(req)=>{
     try{
         await connectToDB();
         const tickets = await Ticket.find();
@@ -19,6 +19,25 @@ import Ticket from "@/models/schema"
         console.log(error);
     }
 } 
+
+//from api/tickets
+// import {NextResponse} from "next/server";
+
+// import connectToDB from "@/database";
+
+// import Ticket from "@/models/schema"
+
+// export const GET = async(req)=>{
+//     try{
+//         await connectToDB();
+//         const tickets = await Ticket.find();
+//         console.log("connection successful.")
+//         return new NextResponse(JSON.stringify(tickets),{status:200});
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// } 
 
 // async function getData() {
 //   const res = await fetch("http://localhost:3000/api/tickets"||"https://hossaindesk.onrender.com/api/tickets", {
@@ -31,7 +50,7 @@ import Ticket from "@/models/schema"
 // }
 
 const TicketList = async () => {
-  const tickets = await getData();
+  const tickets = await getTickets();
 
   console.log(tickets);
 
@@ -39,11 +58,13 @@ const TicketList = async () => {
     <>
       {tickets.map((ticket) => (
         <div key={ticket?.id} className="card my-5 ">
+        <Link href={`/tickets/${ticket.id}`}>
           <h3>{ticket?.title}</h3>
           <p>{ticket?.body.slice(0, 200)}...</p>
           <div className={`pill ${ticket?.priority.toLowerCase()}`}>
             {ticket?.priority} priority
           </div>
+          </Link>
         </div>
       ))}
       {tickets?.length === 0 && (
