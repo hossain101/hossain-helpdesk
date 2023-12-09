@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import { notFound } from "next/navigation";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/tickets"||"https://hossaindesk.onrender.com", {
+  const res = await fetch("http://localhost:3000/api/tickets"||"https://hossaindesk.onrender.com/api/tickets", {
     cache: "no-store",
   });
 
