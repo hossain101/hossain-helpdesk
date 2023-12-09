@@ -1,15 +1,34 @@
 import { MongoClient } from "mongodb";
 import { notFound } from "next/navigation";
+import {NextResponse} from "next/server";
 
-async function getData() {
-  const res = await fetch("http://localhost:3000/api/tickets"||"https://hossaindesk.onrender.com/api/tickets", {
-    cache: "no-store",
-  });
+import connectToDB from "@/database";
 
-  if (!res.ok) return notFound();
+import Ticket from "@/models/schema"
 
-  return res.json();
-}
+
+
+ const getData = async(req)=>{
+    try{
+        await connectToDB();
+        const tickets = await Ticket.find();
+        console.log("connection successful.")
+        return new NextResponse(JSON.stringify(tickets),{status:200}).json();
+    }
+    catch(error){
+        console.log(error);
+    }
+} 
+
+// async function getData() {
+//   const res = await fetch("http://localhost:3000/api/tickets"||"https://hossaindesk.onrender.com/api/tickets", {
+//     cache: "no-store",
+//   });
+
+//   if (!res.ok) return notFound();
+
+//   return res.json();
+// }
 
 const TicketList = async () => {
   const tickets = await getData();
