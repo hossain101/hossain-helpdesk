@@ -5,6 +5,7 @@ import {notFound} from "next/navigation"
 import connectToDB from "@/database";
 
 import Ticket from "@/models/schema";
+import Link from "next/link";
 
 export const dynamicParams = false;
 // export async function generateStaticParams(){
@@ -48,15 +49,18 @@ const TicketDetails = async ({ params }) => {
   const ticket = await getTicket(+id);
   if (!ticket) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white p-8 rounded shadow-md text-center">
-          <h2 className="text-2xl font-bold mb-4">Ticket Not Found</h2>
-          <p className="text-gray-500">The ticket  looking for does not exist.</p>
+      <div className=" flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center border-red-200 border-2">
+          <h2 className="text-3xl font-bold mb-4 text-red-600">Oops! Ticket Not Found</h2>
+          <p className="text-red-500">The ticket you&apos;re looking for does not exist. Please check the ID and try again.</p>
+          <Link href={"/"}>
+          <button className="mt-5 px-4 py-2 rounded text-white bg-red-500 hover:bg-red-700 focus:outline-none">Go Back</button>
+          </Link>
         </div>
       </div>
     );
   }
-
+  
   return (
     <main>
       <nav>
