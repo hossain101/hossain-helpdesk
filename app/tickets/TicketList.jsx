@@ -5,11 +5,13 @@ import connectToDB from "@/database";
 
 import Ticket from "@/models/schema"
 import Link from "next/link";
+import { resolve } from "styled-jsx/css";
 
 
 
  const getTickets = async(req)=>{
     try{
+     // await new Promise(resolve=>setTimeout(resolve,3000));
         await connectToDB();
         const tickets = await Ticket.find();
         console.log("connection successful.")

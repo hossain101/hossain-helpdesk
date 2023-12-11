@@ -25,10 +25,12 @@ export const dynamicParams = false;
 
 async function getTicket(ids) {
   try {
+   // await new Promise(resolve=>setTimeout(resolve,3000));
     await connectToDB();
     const ticket = await Ticket.findOne({
       id: ids,
     });
+
 
   
       return new NextResponse(JSON.stringify(ticket), { status: 200 }).json();
