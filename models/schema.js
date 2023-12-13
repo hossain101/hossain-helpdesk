@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 
 const {Schema} = mongoose;
 
-const ticketSchema = new Schema({
+
+export  const Ticket = new Schema({
+  
     title: {
         type:String,
         required:true
@@ -28,4 +30,12 @@ const ticketSchema = new Schema({
 {timeStamps:true}
 );
 
-export default mongoose.models.Ticket|| mongoose.model("Ticket",ticketSchema);
+if (!mongoose.connection || !mongoose.connection.readyState) {
+    console.error('Mongoose is not connected');
+  }
+  
+  if (!mongoose.models || !mongoose.models.Ticket) {
+    console.error('Ticket model is not registered');
+  }
+  
+  export default mongoose.models && mongoose.models.Ticket || mongoose.model("Ticket", Ticket);

@@ -38,9 +38,9 @@ async function getTicket(ids) {
 
    
   } catch (error) {
- 
-    notFound();
     console.log(error);
+    notFound();
+    
  
     
   }
