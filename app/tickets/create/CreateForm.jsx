@@ -17,7 +17,7 @@ export default function CreateForm() {
 
     const newTicket = { id:Math.random(),title, body, priority, user_email: 'shoaibhossain24@gmail.com' }
 
-    const res = await fetch('http://localhost:3000/api/tickets/post'||'https://hossain-helpdesk.onrender.com/api/tickets/post', {
+    const res = await fetch(`${process.env.URL}/tickets/create`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(newTicket)

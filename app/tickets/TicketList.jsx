@@ -3,8 +3,7 @@ import notFound from "../not-found";
 
 async function getTickets() {
   const res = await fetch(
-    "http://localhost:3000/api/tickets/get" ||
-      "https://hossain-helpdesk.onrender.com/api/tickets/get",
+    `${process.env.URL}/api/tickets/get`,  
     {
       cache: "no-store",
     }
